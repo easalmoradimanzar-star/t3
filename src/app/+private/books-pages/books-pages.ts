@@ -6,8 +6,8 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-books-page',
   imports: [FormsModule],
-  templateUrl: './books-page.html',
-  styleUrl: './books-page.scss',
+  templateUrl: './books-pages.html',
+  styleUrl: './books-pages.scss',
 })
 export class BooksPage implements OnInit {
   save() {
