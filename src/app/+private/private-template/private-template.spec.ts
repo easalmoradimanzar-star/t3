@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BooksPage } from './books-pages';
+import { PrivateTemplate } from './private-template';
 
-describe('BooksPages', () => {
-  let component: BooksPage;
-  let fixture: ComponentFixture<BooksPage>;
+describe('PrivateTemplate', () => {
+  let component: PrivateTemplate;
+  let fixture: ComponentFixture<PrivateTemplate>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BooksPage]
+      imports: [PrivateTemplate]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BooksPage);
+    fixture = TestBed.createComponent(PrivateTemplate);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
