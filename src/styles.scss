@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background-color: rgb(234, 234, 234);
+    margin: 0;
+}
+.alert{
+    background-color: rgb(255, 208, 225);
+    border: 1px solid lightcoral;
+    padding: 1em;
+    border-radius: 0.2em;
+    margin: 1em;
+    text-align: center;
+}

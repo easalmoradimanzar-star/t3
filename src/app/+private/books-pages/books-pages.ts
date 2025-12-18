@@ -11,20 +11,26 @@ import { Title } from '@angular/platform-browser';
 })
 export class BooksPage implements OnInit {
   save() {
+    if(this.state=='add'){
     this.booksService.add(this.item);
-    this.dataRefresh();
-    this.state = 'list';
+      }
+    else if(this.state=='edit'){
+      this.booksService.edit(this.item);
+    }
+     else if(this.state=='remove'){
+      this.booksService.remove(this.item);
+    }
+          this.dataRefresh();
+      this.state='list';
   }
   ngOnInit(): void {
     this.dataRefresh();
   }
   data: BookItem[] = [];
   item: BookItem = {
-    id: 0,
     title: '',
     writer: '',
     publisher: '',
-    price: 0,
   };
   booksService = inject(BooksService);
   state: string = 'list';
@@ -33,15 +39,28 @@ export class BooksPage implements OnInit {
   }
   add() {
 this.state='add';
+this.item={
+    title: '',
+    writer: '',
+    publisher: '',
+};
+  }
+  edit(book:BookItem){
+        this.item={...book};
+    this.state='edit';
+  }
+  remove(book:BookItem){
+this.item={...book};
+   this.state='remove';
   }
   cancel() {
     this.state = 'list';
   }
 }
 export interface BookItem {
-  id: number;
+  id?: number;
   title: string;
   writer: string;
   publisher: string;
-  price: number;
+  price?: number;
 }
