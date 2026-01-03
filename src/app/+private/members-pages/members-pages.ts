@@ -1,59 +1,44 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MembersService } from './members-service';
 import { FormsModule } from '@angular/forms';
+import { Thing } from '../../+shared/+base/base-thing';
+import { BadeCrudPage } from '../../+shared/+base/base-crud-page';
+import { BaseService } from '../../+shared/+base/base-service';
+import { BaseCrudComponent, column } from "../../+shared/+base/base-crud-component/base-crud-component";
 
 @Component({
   selector: 'app-members-page',
-  imports: [FormsModule],
+  imports: [FormsModule, BaseCrudComponent],
   templateUrl: './members-pages.html',
   styleUrl: './members-pages.scss',
 })
-export class membersPage implements OnInit {
-  save() {
-    if (this.state == 'add') {
-      this.membersService.add(this.item);
-    }
-    else if (this.state == 'edit') {
-      this.membersService.edit(this.item);
-    }
-    else if (this.state == 'remove') {
-      this.membersService.remove(this.item);
-    }
-    this.dataRefresh();
-    this.state = 'list';
-  }
+export class membersPage extends BadeCrudPage<membersItem> implements OnInit{
   ngOnInit(): void {
-    this.dataRefresh();
+        this.item={
+      firstname:'',
+      lastname:'',
+      telephon:0,
+    }
+   this.dataRefresh();
   }
-  state: string = 'list';
-  data: membersItem[] = [];
-  item: membersItem = {
-    firstname: '',
-    lastname: '',
-  };
-  membersService = inject(MembersService)
-  dataRefresh() {
-    this.data=this.membersService.list();
+  override dataService=inject(MembersService);
+  override addPrepair(): void {
+    this.item={
+      firstname:'',
+      lastname:'',
+      telephon:0,
+    }
   }
-  add() {
-    this.state = 'add';
-    this.item = { firstname: '', lastname: '' };
-  }
-  edit(members: membersItem) {
-    this.item = { ...members };
-    this.state = 'edit'
-  }
-  remove(members: membersItem) {
-    this.item = { ...members };
-    this.state = 'remove'
-  }
-  cancel() {
-    this.state = 'list'
-  }
+  membersColumns:column[]=[
+    {field:'id',title:'شناسه'},
+     {field:'firstname',title:'نام'},
+      {field:'lastname',title:'نام خانوادگی'},
+       {field:'telephon',title:'موبایل'},
+  ]
+  
 }
-export interface membersItem {
-  lastname: string;
+export interface membersItem extends Thing {
   firstname: string;
-  id?: number;
+  lastname: string;
   telephon?: number;
 }

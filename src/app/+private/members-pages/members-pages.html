@@ -1,57 +1,23 @@
-@if (state=='list') {
-<button (click)="add()" class="primary">افزودن</button>
-<table>
-    <thead>
-        <tr>
-            <th>شناسه</th>
-            <th>نام</th>
-            <th>نام خانوادگی</th>
-            <th>تلفن</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (item of data; track $index) {
-        <tr>
-            <td> {{item.id}}</td>
-            <td> {{item.firstname}}</td>
-            <td> {{item.lastname}}</td>
-            <td>{{item.telephon}}</td>
-            <td>
-                <button (click)="edit(item)" class="primary">ویرایش</button>
-                <button (click)="remove(item)" class="primary">حذف</button>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-}
-@else {
-    @if (state=='remove') {
-    <div class="alert">
-        آیا از حذف این عضو اطمینان دارید؟
-    </div>
-    }
-    <form (ngSubmit)="save()">
+<my-crud 
+[mystate]="state"
+[columns]="membersColumns"
+[mydata]="data"
+(onAdd)="add()"
+(onCancel)="cancel()"
+(onEdit)="edit($event)"
+(onRemove)="remove($event)"
+(onSave)="save()"
+>
     <div>
-        <input [disabled]="state=='edit' ||state=='remove'" [class.ghofl]="state=='edit'" [(ngModel)]="item.id" id="id" name="id" type="number"
-            placeholder="شناسه">
+        <input [disabled]="state=='edit' || state=='remove'"  [class.ghofl]="state=='edit'" [(ngModel)]="item.id" id="id" name="id" type="number" placeholder="شناسه">
     </div>
-    <div>
-        <input [disabled]="state=='remove'" [(ngModel)]="item.lastname" id="lastname" name="lastname" type="text"
-            placeholder="نام خانوادگی">
+     <div>
+        <input [disabled]="state=='remove'" [(ngModel)]="item.firstname" id="firstname" name="firstname" type="text" placeholder="نام">
     </div>
-    <div>
-        <input [disabled]="state=='remove'" [(ngModel)]="item.firstname" id="firstname" name="firstname" type="text"
-            placeholder="نام">
+     <div>
+        <input [disabled]="state=='remove'" [(ngModel)]="item.lastname" id="lastname" name="lastname" type="text" placeholder="نام خانوادگی">
     </div>
-    <div>
-        <input [disabled]="state=='remove'" [(ngModel)]="item.telephon" id="telephon" name="telephon" type="number"
-            placeholder="تلفن">
+     <div>
+        <input [disabled]="state=='remove'" [(ngModel)]="item.telephon" id="telephon" name="telephon" type="number" placeholder="موبایل">
     </div>
-    <div>
-        <button class="primary" type="submit">تایید</button>
-        <button (click)="cancel()" class="primary" type="button">انصراف</button>
-    </div>
-</form>
-}
+</my-crud>
